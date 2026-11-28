@@ -31,44 +31,53 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-yellow-200">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-80">
-        <h1 className="text-3xl font-bold text-center mb-6">Login Form</h1>
+    <main className="app-shell">
+      <header className="topbar">
+        <a className="brand" href="/login"><span className="brand-mark">LB</span>Barayuga</a>
+        <nav className="topnav" aria-label="Main navigation">
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </header>
 
-        <input
-          type="text"
-          placeholder="Enter Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border p-3 w-full rounded-lg mb-4"
-        />
+      <div className="page-frame flex items-center justify-center" style={{ minHeight: "calc(100vh - 124px)" }}>
+        <div className="grid w-full max-w-[960px] overflow-hidden md:grid-cols-2 panel">
+          <section className="flex flex-col justify-between bg-[#20211f] p-8 text-white sm:p-12">
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#e7a16e]">Personal portal</span>
+            <div className="my-16 md:my-0">
+              <h1 className="max-w-sm text-4xl font-extrabold leading-[1.08] sm:text-5xl">Welcome back to your space.</h1>
+              <p className="mt-5 max-w-sm leading-7 text-white/65">Sign in to view your profile and stay connected.</p>
+            </div>
+            <p className="text-sm text-white/45">Life is a choice, not a destiny.</p>
+          </section>
 
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-3 w-full rounded-lg mb-3"
-        />
+          <form
+            className="p-8 sm:p-12"
+            onSubmit={(event) => { event.preventDefault(); handleLogin(); }}
+          >
+            <p className="mb-2 text-sm font-bold text-[var(--accent)]">Account access</p>
+            <h2 className="text-3xl font-extrabold tracking-tight">Sign in</h2>
+            <p className="mt-2 mb-8 text-sm text-[var(--ink-muted)]">Enter your details to continue.</p>
 
-        <div className="flex items-center gap-2 mb-4">
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={(e) => setShowPassword(e.target.checked)}
-          />
-          <label>Show Password</label>
+            <label className="mb-2 block text-sm font-bold" htmlFor="username">Username</label>
+            <input id="username" type="text" placeholder="Enter username" value={username}
+              onChange={(e) => setUsername(e.target.value)} className="field mb-5" />
+
+            <label className="mb-2 block text-sm font-bold" htmlFor="password">Password</label>
+            <input id="password" type={showPassword ? "text" : "password"} placeholder="Enter password"
+              value={password} onChange={(e) => setPassword(e.target.value)} className="field" />
+
+            <label className="mt-4 mb-6 flex items-center gap-2 text-sm text-[var(--ink-muted)]">
+              <input type="checkbox" checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)} />
+              Show password
+            </label>
+
+            {error && <p role="alert" className="mb-4 rounded-lg bg-[#fff0e7] px-4 py-3 text-sm font-bold text-[#a6431a]">{error}</p>}
+            <button type="submit" className="primary-button w-full">Sign in</button>
+          </form>
         </div>
-
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
-        <button
-          onClick={handleLogin}
-          className="bg-black text-white p-3 w-full rounded-lg hover:bg-gray-700"
-        >
-          Login
-        </button>
       </div>
-    </div>
+    </main>
   );
 }
